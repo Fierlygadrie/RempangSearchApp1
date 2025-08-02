@@ -1,9 +1,7 @@
 name: Build Debug APK
-
 on:
   push:
     branches: [main]
-
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -20,8 +18,8 @@ jobs:
       - name: Grant execute permission for gradlew
         run: chmod +x ./gradlew
 
-      - name: Build with Gradle
-        run: ./gradlew assembleDebug
+      - name: Build with Gradle (verbose)
+        run: ./gradlew assembleDebug --info --stacktrace
 
       - name: Find APK
         run: find . -name "*.apk"
@@ -31,6 +29,3 @@ jobs:
         with:
           name: rempang-debug-apk
           path: app/build/outputs/apk/debug/app-debug.apk
-
-            - name: Build with Gradle (verbose)
-        run: ./gradlew assembleDebug --info
