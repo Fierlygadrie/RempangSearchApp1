@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Hacker OSINT Dashboard</title>
+  <style>
+    body {
+      margin: 0;
+      background-color: black;
+      color: #00ff00;
+      font-family: 'Courier New', monospace;
+      display: flex;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .column {
+      flex: 1;
+      border-right: 1px solid #00ff00;
+      padding: 10px;
+      box-sizing: border-box;
+      overflow-y: auto;
+    }
+
+    .column:last-child {
+      border-right: none;
+    }
+
+    h2 {
+      margin-top: 0;
+      color: #00ff00;
+    }
+
+    input, button, textarea {
+      background-color: black;
+      color: #00ff00;
+      border: 1px solid #00ff00;
+      font-family: 'Courier New', monospace;
+      padding: 5px;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    ul {
+      list-style-type: none;
+      padding-left: 0;
+    }
+
+    li {
+      margin: 5px 0;
+      cursor: pointer;
+    }
+
+    li:hover {
+      text-decoration: underline;
+    }
+
+    .terminal-output {
+      height: 300px;
+      overflow-y: auto;
+      background-color: #111;
+      padding: 10px;
+      margin-bottom: 10px;
+      border: 1px solid #00ff00;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Kolom 1: Google Dorking -->
+  <div class="column">
+    <h2>Google Dorking</h2>
+    <input id="searchInput" placeholder="Enter target..." />
+    <ul id="dorkList">
+      <li>site:example.com</li>
+      <li>intitle:"index of" site:example.com</li>
+      <li>inurl:login site:example.com</li>
+      <li>filetype:sql site:example.com</li>
+      <li>site:example.com ext:log</li>
+    </ul>
+  </div>
+
+  <!-- Kolom 2: Terminal DOS-style -->
+  <div class="column">
+    <h2>Terminal</h2>
+    <div class="terminal-output" id="terminalOutput"></div>
+    <input id="terminalInput" placeholder="> Type a command and hit Enter" />
+  </div>
+
+  <!-- Kolom 3: Kosong -->
+  <div class="column">
+    <h2>Panel 3</h2>
+    <p>Isi sesuai kebutuhan (log, hasil scan, dll)</p>
+  </div>
+
+  <!-- Kolom 4: Kosong -->
+  <div class="column">
+    <h2>Panel 4</h2>
+    <p>Isi sesuai kebutuhan (output detail, laporan, dll)</p>
+  </div>
+
+  <script>
+    // Terminal Simulasi
+    const terminalInput = document.getElementById('terminalInput');
+    const terminalOutput = document.getElementById('terminalOutput');
+
+    terminalInput.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') {
+        const command = terminalInput.value.trim();
+        if (command) {
+          terminalOutput.innerHTML += `<div>> ${command}</div>`;
+          terminalOutput.innerHTML += `<div>Running: ${command}...</div>`;
+          terminalInput.value = '';
+          terminalOutput.scrollTop = terminalOutput.scrollHeight;
+        }
+      }
+    });
+
+    // Google Dorking auto-fill
+    const dorkList = document.getElementById('dorkList');
+    const searchInput = document.getElementById('searchInput');
+
+    dorkList.addEventListener('click', function(e) {
+      if (e.target.tagName === 'LI') {
+        const target = searchInput.value.trim() || 'example.com';
+        const dork = e.target.textContent.replace(/example\.com/g, target);
+        window.open(`https://www.google.com/search?q=${encodeURIComponent(dork)}`, '_blank');
+      }
+    });
+  </script>
+</body>
+</html>
