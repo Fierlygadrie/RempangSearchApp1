@@ -18,7 +18,7 @@ jobs:
       - name: Build APK Debug
         run: ./gradlew assembleDebug
  - name: List APK outputs
-  run: find app/build/outputs/apk/debug/
+  run: find app/build/outputs/apk/
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
