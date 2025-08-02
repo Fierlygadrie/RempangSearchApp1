@@ -31,3 +31,6 @@ jobs:
         with:
           name: rempang-debug-apk
           path: app/build/outputs/apk/debug/app-debug.apk
+
+            - name: Build with Gradle (verbose)
+        run: ./gradlew assembleDebug --info
