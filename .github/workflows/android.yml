@@ -17,7 +17,7 @@ jobs:
         run: chmod +x ./gradlew
       - name: Build APK Debug
         run: ./gradlew assembleDebug
-      - name: List APK outputs
+ - name: List APK outputs
   run: find app/build/outputs/apk/
       - name: Upload APK
         uses: actions/upload-artifact@v4
